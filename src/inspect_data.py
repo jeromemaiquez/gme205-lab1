@@ -108,3 +108,26 @@ summary = {
     "valid_coordinate_rows": int(len(valid_df)), 
     "bbox": bbox 
 } 
+
+# Write summary.json
+with open(SUMMARY_PATH, "w", encoding="utf-8") as f: 
+    json.dump(summary, f, indent=2) 
+
+print(f"\nSaved summary to: {SUMMARY_PATH}") 
+
+# Save scatter plot (valid coords only) 
+plt.figure() 
+if len(valid_df) == 0: 
+    # Create an empty plot with message in title 
+    plt.title("Preview Plot (No valid coordinates to plot)") 
+else: 
+    plt.scatter(valid_df["lon"], valid_df["lat"]) 
+    plt.title("Point Preview (lon vs lat)") 
+    plt.xlabel("Longitude") 
+    plt.ylabel("Latitude") 
+
+plt.savefig(PLOT_PATH, dpi=150, bbox_inches="tight") 
+plt.close() 
+
+print(f"Saved scatter plot to: {PLOT_PATH}") 
+print("\n=== END OF REPORT ===") 
